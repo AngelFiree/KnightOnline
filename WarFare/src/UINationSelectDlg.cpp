@@ -23,8 +23,9 @@ CUINationSelectDlg::CUINationSelectDlg()
 
 CUINationSelectDlg::~CUINationSelectDlg()
 {
-	m_pBtnKarus = NULL;
-	m_pBtnElmorad = NULL;
+	m_pBtnKarus 	= NULL;
+	m_pBtnElmorad 	= NULL;
+	m_pBtnBack 	= NULL;
 }
 
 bool CUINationSelectDlg::Load(HANDLE hFile)
@@ -33,7 +34,7 @@ bool CUINationSelectDlg::Load(HANDLE hFile)
 
 	m_pBtnKarus = this->GetChildByID("bt_karus");	__ASSERT(m_pBtnKarus, "NULL UI Component!!");
 	m_pBtnElmorad = this->GetChildByID("bt_elmo");	__ASSERT(m_pBtnElmorad, "NULL UI Component!!");
-	
+	m_pBtnBack = this->GetChildByID("btn_back");	__ASSERT(m_pBtnElmorad, "NULL UI Component!!");
 	RECT rc = this->GetRegion();
 	int iX = ((int)s_CameraData.vp.Width - (rc.right - rc.left))/2;
 	int iY = ((int)s_CameraData.vp.Height - (rc.bottom - rc.top))/2;
@@ -56,6 +57,11 @@ bool CUINationSelectDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 		if ( pSender == m_pBtnElmorad )	// Elmorad
 		{
 			if(m_pProcNationSelectRef) m_pProcNationSelectRef->MsgSendNationSelect(NATION_ELMORAD);
+		}
+		else
+		if ( pSender == m_pBtnBack ) // Back
+		{
+			CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn); // Ä³¸¯ÅÍ ¼±ÅÃ ÇÁ·Î½ÃÀú·Î ÇÑ´Ù..
 		}
 	}
 
